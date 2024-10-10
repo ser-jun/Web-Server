@@ -20,10 +20,14 @@ namespace Web_Server.Controllers
             return await _context.Devices.ToListAsync();
         }
 
-        [HttpPost("{id}")] 
-        public async Task<IActionResult> AddDevices(int id, [FromBody]  Device device)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddDevices(int id, [FromBody] Device device)
         {
-            return null;
+            if (id!=device.Id) return BadRequest("erorrrr");
+            if (_context.Devices.Any(d => d.Id == id)) return BadRequest("errrr");
+            _context.Devices.Add(device);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetDevices), new { id = device.Id }, device);
         }
     }
 }
