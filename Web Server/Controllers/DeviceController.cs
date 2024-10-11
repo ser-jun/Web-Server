@@ -30,12 +30,12 @@ namespace Web_Server.Controllers
             return CreatedAtAction(nameof(GetDevices), new { id = device.Id }, device);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDevice(int id) //need fix
+        public async Task<IActionResult> DeleteDevice(int id) 
         {
             var device = _context.Devices.Find(id);
             if (device == null) return BadRequest("Not found");
             _context.Devices.Remove(device);
-             _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync(); 
 
             return Ok();
         }
