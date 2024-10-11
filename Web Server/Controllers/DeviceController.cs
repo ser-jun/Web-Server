@@ -23,8 +23,8 @@ namespace Web_Server.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> AddDevices(int id, [FromBody] Device device)
         {
-            if (id!=device.Id) return BadRequest("erorrrr");
-            if (_context.Devices.Any(elem => elem.Id == id)) return BadRequest("errrr");
+            if (id != device.Id) return BadRequest("Id does not match id in url");
+            if (_context.Devices.Any(elem => elem.Id == id)) return BadRequest("this element contains in database");
             _context.Devices.Add(device);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetDevices), new { id = device.Id }, device);
