@@ -27,7 +27,7 @@ namespace Web_Server.Controllers
             if (_context.Devices.Any(elem => elem.Id == id)) return BadRequest("this element contains in database");
             _context.Devices.Add(device);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetDevices), new { id = device.Id }, device);
+            return Ok();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDevice(int id) 
